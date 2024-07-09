@@ -1,7 +1,0 @@
-shapely>=2.0.0
-opencv_python==4.10.0.84
-opencv_python_headless==4.8.0.76
-streamlit
-ultralytics
-tk
-tkinter
