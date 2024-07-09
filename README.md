@@ -18,7 +18,7 @@ This project is part of Task 2 of the ITSOLERA internship. It involves creating 
    cd video-processing-yolo
 2. Run the Script:
     ```sh
-   streamlit run speed_check.py
+   streamlit run main.py
 ## Usage
 1. Upload a video file in MP4 or AVI format.
 2. Click the "Draw Line" button. A new window will open displaying the first frame of the video.
