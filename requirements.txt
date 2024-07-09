@@ -4,3 +4,4 @@ opencv_python_headless==4.8.0.76
 streamlit
 ultralytics
 tk
+tkinter
