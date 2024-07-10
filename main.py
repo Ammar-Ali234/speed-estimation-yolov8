@@ -3,9 +3,10 @@ import cv2
 from ultralytics import YOLO, solutions
 import tempfile
 import os
+import numpy as np
 
 # Streamlit app
-st.title("Computer Vision Team(Beta): Speed Estimationa and Tracking of Vehicles")
+st.title("Computer Vision Team (Beta): Speed Estimation and Tracking of Vehicles")
 
 # Video upload
 uploaded_video = st.file_uploader("Upload a video", type=["mp4", "avi"])
@@ -26,27 +27,26 @@ if uploaded_video is not None:
             st.error("Failed to read video")
             return None
 
-        #frame = cv2.resize(frame, (640, 480))
+        # Display the frame
+        st.image(frame, caption="First frame", use_column_width=True)
 
-        line_pts = []
+        # Allow the user to input the coordinates for the line
+        x1 = st.number_input("X1 coordinate", min_value=0, max_value=frame.shape[1], value=0)
+        y1 = st.number_input("Y1 coordinate", min_value=0, max_value=frame.shape[0], value=0)
+        x2 = st.number_input("X2 coordinate", min_value=0, max_value=frame.shape[1], value=frame.shape[1])
+        y2 = st.number_input("Y2 coordinate", min_value=0, max_value=frame.shape[0], value=frame.shape[0])
 
-        def draw_line(event, x, y, flags, param):
-            if event == cv2.EVENT_LBUTTONDOWN:
-                line_pts.append((x, y))
-                if len(line_pts) == 2:
-                    cv2.line(frame, line_pts[0], line_pts[1], (0, 255, 0), 2)
-                    cv2.imshow("Draw Line", frame)
-
-        cv2.imshow("Draw Line", frame)
-        cv2.setMouseCallback("Draw Line", draw_line)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-
-        if len(line_pts) == 2:
-            return line_pts
-        else:
-            st.error("Please draw a complete line")
-            return None
+        if st.button("Draw Line"):
+            # Draw the line on the frame
+            line_frame = frame.copy()
+            cv2.line(line_frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            
+            # Display the frame with the line
+            st.image(line_frame, caption="Frame with line", use_column_width=True)
+            
+            # Return the line points
+            return [(x1, y1), (x2, y2)]
+        return None
 
     # Function to process the video
     def process_video(video_path, line_pts):
@@ -87,20 +87,19 @@ if uploaded_video is not None:
 
     # Let the user draw the line
     st.write("Draw a line for speed estimation")
-    if st.button("Draw Line"):
-        line_pts = draw_line_on_frame(tmp_video_path)
-        if line_pts is not None:
-            st.write(f"Line points: {line_pts}")
+    line_pts = draw_line_on_frame(tmp_video_path)
+    if line_pts is not None:
+        st.write(f"Line points: {line_pts}")
 
-            # Process the uploaded video
-            with st.spinner("Processing video..."):
-                processed_video_path = process_video(tmp_video_path, line_pts)
+        # Process the uploaded video
+        with st.spinner("Processing video..."):
+            processed_video_path = process_video(tmp_video_path, line_pts)
 
-            st.success("Video processed successfully!")
+        st.success("Video processed successfully!")
 
-            # Provide download link for the processed video
-            with open(processed_video_path, "rb") as processed_video_file:
-                processed_video_bytes = processed_video_file.read()
-                st.download_button(label="Download Processed Video", data=processed_video_bytes, file_name="processed_video.avi", mime="video/avi")
+        # Provide download link for the processed video
+        with open(processed_video_path, "rb") as processed_video_file:
+            processed_video_bytes = processed_video_file.read()
+            st.download_button(label="Download Processed Video", data=processed_video_bytes, file_name="processed_video.avi", mime="video/avi")
 
 # Run the app using `streamlit run app.py`
