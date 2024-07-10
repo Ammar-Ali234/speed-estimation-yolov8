@@ -1,4 +1,5 @@
 # Speed Estimation and Tracking of Vehicle using YOLOv8 and webapp for Realtime Estimation
+Link of the App: [Speed Estimator App](https://speed-estimation-yolov8-ammarali.streamlit.app/)
 
 This project is part of Task 2 of the ITSOLERA internship. It involves creating a Streamlit app that allows users to upload a video, draw a line for speed estimation, and process the video using the YOLO model for object detection and a custom speed estimator. The processed video can be downloaded by the user.
 
