@@ -3,4 +3,4 @@ streamlit
 ultralytics
 shapely
 numpy
-lap
+
