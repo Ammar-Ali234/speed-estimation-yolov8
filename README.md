@@ -14,7 +14,7 @@ This project is part of Task 2 of the ITSOLERA internship. It involves creating 
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/video-processing-yolo.git
+   git clone https://github.com/Ammar-Ali234/speed-estimation-yolov8
    cd video-processing-yolo
 2. Run the Script:
     ```sh
