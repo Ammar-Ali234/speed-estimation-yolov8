@@ -1,2 +1,4 @@
 libgl1-mesa-glx
 libglib2.0-0
+libtcl8.6
+libtk8.6
