@@ -3,3 +3,4 @@ opencv_python==4.8.0.76
 opencv_python_headless==4.8.0.74
 streamlit==1.36.0
 ultralytics==8.2.50
+shapely>=2.0.0
