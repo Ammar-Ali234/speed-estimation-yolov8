@@ -2,3 +2,5 @@ opencv_python_headless
 streamlit
 ultralytics
 shapely
+numpy
+lap
